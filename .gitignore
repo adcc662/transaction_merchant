@@ -37,3 +37,4 @@ commands.txt
 *.pdf
 alembic/versions/*
 data
+migrations
