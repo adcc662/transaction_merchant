@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
+from catalog.models import Commerce
 from catalog.serializers import CategorySerializer, CommerceSerializer
 from .models import Transaction, Keyword
 import uuid
@@ -17,23 +18,23 @@ class TransactionInputSerializer(serializers.Serializer):
             try:
                 data['id'] = uuid.UUID(data['id'])
             except ValueError:
-                raise ValidationError("Invalid UUID")
+                raise ValidationError({'id': 'Invalid UUID format.'})
         else:
             data['id'] = None
 
         try:
             data['amount'] = float(data['amount'])
         except ValueError:
-            raise ValidationError("Invalid amount")
+            raise ValidationError({'amount': 'Invalid amount format.'})
 
         try:
-            data['date'] = datetime.strptime(data['date'], "%Y-%m-%d").date()
+            data['date'] = datetime.strptime(data['date'], '%Y-%m-%d').date()
         except ValueError:
-            raise ValidationError("Invalid date")
+            raise ValidationError({'date': 'Invalid date format.'})
 
         return super().to_internal_value(data)
 
-class TransactionListSerializer(serializers.ModelSerializer):
+class TransactionListSerializer(serializers.Serializer):
     transactions = serializers.ListSerializer(child=TransactionInputSerializer())
 
 class TransactionSerializer(serializers.ModelSerializer):
@@ -45,6 +46,9 @@ class TransactionSerializer(serializers.ModelSerializer):
         fields = ['id', 'description', 'amount', 'date', 'category', 'merchant', 'created_at', 'updated_at']
 
 class KeywordSerializer(serializers.ModelSerializer):
+    merchant_id = serializers.PrimaryKeyRelatedField(
+        queryset=Commerce.objects.all(), source='merchant'
+    )
     class Meta:
         model = Keyword
-        fields = ['id', 'keyword']
+        fields = ['id', 'keyword', 'merchant_id']
