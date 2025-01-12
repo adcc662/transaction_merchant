@@ -1,6 +1,7 @@
 from providers import transaction as transaction_provider
 from providers import keyword as keyword_provider
 
+
 def enrich_transactions(transactions):
     enriched_transactions = []
     unique_words = set()
@@ -12,7 +13,7 @@ def enrich_transactions(transactions):
         description = transaction['description'].lower()
         unique_words.update(description.split())
 
-    matched_keywords = keyword_provider.get_keywords_description(unique_words)
+    matched_keywords = keyword_provider.get_keywords_by_description_words(unique_words)
 
     keyword_to_merchant = {keyword.keyword: keyword.merchant for keyword in matched_keywords}
     keyword_to_category = {keyword.keyword: keyword.merchant.category for keyword in matched_keywords}
@@ -37,6 +38,7 @@ def enrich_transactions(transactions):
             categorized_count += 1
         if merchant:
             identified_merchant_count += 1
+
         enriched_transactions.append(transaction)
 
     categorization_rate = (categorized_count / total_transactions) * 100 if total_transactions > 0 else 0
@@ -50,10 +52,11 @@ def enrich_transactions(transactions):
 
     return enriched_transactions, metrics
 
+
 def created_enriched_transactions(transactions):
     try:
-        created_transactions = transaction_provider.create_transactions()
+        created_transactions = transaction_provider.create_transactions(transactions)
         return created_transactions
     except Exception as e:
-        print(f"Error creating transactions: {e}")
+        print(f"Error creating enriched transactions: {e}")
         return []
