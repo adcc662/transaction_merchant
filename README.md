@@ -31,8 +31,15 @@ Transaction Merchant es una API diseñada para manejar transacciones, palabras c
    docker exec -it <container_id> python manage.py makemigrations
    docker exec -it <container_id> python manage.py migrate
    ```
+   
+   
+Si se ingresa a la base de datos, tienes que usar el comando 
+   ```bash
+   ipconfig o en linux
+   ifconfig IPv4
+   ```
+   para obtener el host de la base de datos y poder ingresar a ella, las credenciales se encuentran en archivo `compose.yml` o `settings.py` .
 
-   > Reemplaza `<container_id>` con el ID o nombre del contenedor correspondiente al servicio `web`.
    
 ---
 
@@ -70,4 +77,5 @@ Para facilitar el uso de la API, se incluye una colección de Postman exportada 
    ```bash
    docker exec -it <container_id> python manage.py test
    ```
+
 
