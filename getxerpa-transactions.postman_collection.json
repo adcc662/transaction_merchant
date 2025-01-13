@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "13157e54-cd8f-442a-90b3-25bbb05a9a2c",
+		"name": "getxerpa-transactions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18589599"
+	},
+	"item": [
+		{
+			"name": "enrich transactions",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"transactions\": [\r\n        {\r\n        \"id\": \"019b974b-6df2-46ff-b8a6-fe3018504aa1\",\r\n        \"description\": \"DOMINO S PIZZA LA 10\",\r\n        \"amount\": 100.0,\r\n        \"date\": \"2024-06-28\",\r\n        \"category_id\": \"5b9f7198-f119-430f-a5a9-c9356a70eadf\",\r\n        \"commerce_id\": \"9a624a0f-640a-454d-ba24-fe569ed94798\"\r\n      },\r\n          \r\n    {\r\n        \"id\": \"fe479f53-26e9-4e4e-9426-4404838759e3\",\r\n        \"description\": \"DOMINO SANTA ROSA\",\r\n        \"amount\": 150.0,\r\n        \"date\": \"2024-06-28\",\r\n        \"category_id\": \"5b9f7198-f119-430f-a5a9-c9356a70eadf\",\r\n        \"commerce_id\": \"9a624a0f-640a-454d-ba24-fe569ed94798\"\r\n      }\r\n    ]\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/transaction/enrichment/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"transaction",
+						"enrichment",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "categories",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"cf9519c7-574a-4571-8fac-979a222dac12\",\r\n    \"name\": \"Restaurantes\",\r\n    \"type\": \"expense\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/catalog/categories/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"catalog",
+						"categories",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "commerce",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"67c2e2ff-9bdd-46c8-ad99-2a967da0ff6b\",\r\n    \"merchant_name\": \"UBER EATS\",\r\n    \"merchant_logo\": \"https://www.example.com/logo.png\",\r\n    \"category_id\": \"5b9f7198-f119-430f-a5a9-c9356a70eadf\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/catalog/commerce/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"catalog",
+						"commerce",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "keywords",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"c5c7d480-5e1c-4cc4-b0d0-2051877c95cb\",\r\n    \"keyword\": \"uber eats\",\r\n    \"merchant_id\": \"9a624a0f-640a-454d-ba24-fe569ed94798\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/transaction/keywords/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"transaction",
+						"keywords",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
